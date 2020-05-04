@@ -1,0 +1,16 @@
+.navigation {
+  margin-left: 10rem;
+
+  &List {}
+
+  &Item {
+    display: inline-block;
+    margin: 0 1rem;
+    text-decoration: none;
+    color: #eee;
+
+    &Active {
+      font-weight: 700;
+    }
+  }
+}

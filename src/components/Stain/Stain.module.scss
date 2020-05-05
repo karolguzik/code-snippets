@@ -1,0 +1,23 @@
+.stain {
+  position: absolute;
+  width: 600px;
+  height: 100px;
+  z-index: -1;
+  transition: .2 ease-in-out;
+
+  &Image {
+    width: 100%;
+  }
+}
+
+.stainLogo {
+  @extend .stain;
+  top: -6rem;
+  left: -24rem;
+}
+
+.stainButton {
+  @extend .stain;
+  top: -19rem;
+  right: -18rem;
+}

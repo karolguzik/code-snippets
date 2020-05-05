@@ -1,8 +1,13 @@
 .button {
   padding: 1rem 2rem;
   max-width: 200px;
-  background: rgb(216, 216, 216);
+  width: 100%;
+  // background: rgb(216, 216, 216);
+  background: none;
+  // color: white;
+  color: #333;
+  font-weight: 700;
+  text-transform: uppercase;
   border: none;
-  box-shadow: 0 5px 20px -5px rgba(#000, .7);
   cursor: pointer;
 }

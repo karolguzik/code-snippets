@@ -1,13 +1,9 @@
 import React from 'react';
-import AppContext from '../../context';
+import withContext from '../../hoc/withContext';
 import List from '../../components/List/List';
 
-const ReactView = () => (
-  <AppContext.Consumer>
-    {(context) => (
-      <List items={context.react} />
-    )}
-  </AppContext.Consumer>
+const ReactView = ({ appContext: { react }}) => (
+  <List items={react} />
 )
 
-export default ReactView;
+export default withContext(ReactView);

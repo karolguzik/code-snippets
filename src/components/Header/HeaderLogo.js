@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './HeaderLogo.module.scss';
 
 const HeaderLogo = () => {
   return(
-    <span className={styles.logo}>
-      Code snippets
-    </span>
+    <Link to="/" className={styles.logo}>
+      <span>
+        Code snippets
+      </span>
+    </Link>
   )
 }
 

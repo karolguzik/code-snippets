@@ -1,16 +1,46 @@
 .wrapper {
   position: relative;
   width: 90%;
-  height: 400px;
-  // background: #eee;
+  height: 200px;
+  padding: 4rem;
   border-radius: 5px;
   box-shadow: 0 5px 20px -3px rgba(#000, .7);
   list-style: none;
   transition: .1s ease-in-out;
+  animation: snippetSlideIn .5s ease forwards;
+  // word-break: break-all;
 
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px -3px rgba(#000, .7);
     cursor: pointer;
   }
+}
+
+.heading {
+  font-size: 2rem;
+}
+
+.pin {
+  position: absolute;
+  width: 150px;
+  top: -2rem;
+  left: 0;
+}
+
+@keyframes snippetSlideIn {
+  0% {
+    left: -20px;
+    opacity: 0;
+  }
+
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: #eee;
 }

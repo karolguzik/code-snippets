@@ -1,13 +1,9 @@
 import React from 'react';
-import AppContext from '../../context';
+import withContext from '../../hoc/withContext';
 import List from '../../components/List/List';
 
-const JavascriptView = () => (
-  <AppContext.Consumer>
-    {(context) => (
-      <List items={context.javascript} />
-    )}
-  </AppContext.Consumer>
+const JavascriptView = ({ appContext: { javascript }}) => (
+  <List items={javascript} />
 )
 
-export default JavascriptView;
+export default withContext(JavascriptView);

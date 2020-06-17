@@ -1,35 +1,49 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import AppContext from './context';
+import AppContext from './context/context';
 import Header from './components/Header/Header';
 import WelcomeView from './views/WelcomeView/WelcomeView';
 import HtmlView from './views/HtmlView/HtmlView';
 import CssView from './views/CssView/CssView';
 import JavascriptView from './views/JavaScriptView/JavascriptView';
 import ReactView from './views/ReactView/ReactView';
+import SnippetView from './views/SnippetView/SnippetView';
 import Modal from './components/Modal/Modal';
+
 
 class App extends React.Component {
   state = {
-    html: [
-      {
-        title: 'Html structure',
-        description: 'Html is response for code of structure ...'
-      },
-      {
-        title: 'Html structure',
-        description: 'Html is response for code of structure ...'
-      },
-      {
-        title: 'Html structure',
-        description: 'Html is response for code of structure ...'
-      }
-    ],
+    html: [],
     css: [],
     javascript: [],
     react: [],
-    isModalOpen: true,
+    isModalOpen: false,
+  }
+
+  addSnippet = (e, snippet) => {
+    e.preventDefault();
+
+    this.setState((prevState) => ({
+      [snippet.type]: [...prevState[snippet.type], snippet]
+    }))
+
+    this.closeModal();
+  }
+
+  deleteSnippet = (type, id) => {
+    const snippets = this.state[type];
+    const filteredSnippets = snippets.filter(snippet => snippet.id !== id)
+
+    this.setState({
+      [type]: filteredSnippets
+    })
+  }
+
+  searchSnippet = (type, snippet) => {
+    this.setState({
+      [type]: snippet
+    })
   }
 
   openModal = () => {
@@ -45,10 +59,17 @@ class App extends React.Component {
   }
 
   render() {
+    let { html, css, javascript, react } = this.state;
+    let allSnippets = [...html, ...css,...javascript,...react];
+
     const context = {
       ...this.state,
+      allSnippets: allSnippets,
       openModal: this.openModal,
       closeModal: this.closeModal,
+      addSnippet: this.addSnippet,
+      deleteSnippet: this.deleteSnippet,
+      searchSnippet: this.searchSnippet,
     }
 
     return (
@@ -58,6 +79,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={WelcomeView} />
             <Route path="/html" component={HtmlView}/>
+            <Route path="/snippet/:id" component={SnippetView}/>
             <Route path="/css" component={CssView}/>
             <Route path="/javascript" component={JavascriptView}/>
             <Route path="/react" component={ReactView}/>

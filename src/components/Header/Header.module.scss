@@ -1,11 +1,11 @@
 .header {
   padding: 5rem 10rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 100vw;
-  // justify-content: space-between;
+  width: 100%;
 
   button {
-    margin-left: auto;
+    // margin-left: auto;
   }
 }

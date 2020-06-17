@@ -1,13 +1,9 @@
 import React from 'react';
-import AppContext from '../../context';
+import withContext from '../../hoc/withContext';
 import List from '../../components/List/List';
 
-const HtmlView = () => (
-  <AppContext.Consumer>
-    {(context) => (
-      <List items={context.html} />
-    )}
-  </AppContext.Consumer>
+const HtmlView = ({appContext: { html }}) => (
+  <List items={html} />
 )
 
-export default HtmlView;
+export default withContext(HtmlView);

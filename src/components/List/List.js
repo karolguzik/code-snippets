@@ -3,11 +3,16 @@ import styles from './List.module.scss';
 import ListItem from './ListItem';
 
 const List = ({items}) => {
+  const itemsList = items.length ? (
+    items.map(item => {
+      return <ListItem title={item.title} key={item.id} id={item.id}/>
+    })
+  ) : (
+    <p>No added snippet's yet...</p>
+  )
   return (
     <ul className={styles.wrapper}>
-      {items.map(item => (
-        <ListItem title={item.title} description={item.description} />
-      ))}
+      {itemsList}
     </ul> 
   )
 }

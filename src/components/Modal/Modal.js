@@ -1,17 +1,15 @@
 import React from 'react';
 import styles from './Modal.module.scss';
-import AppContext from '../../context';
+import withContext from '../../hoc/withContext';
+import Form from '../Form/Form';
 
-const Modal = () => (
-  <AppContext.Consumer>
-    {(context) => (
-      <div className={styles.modal}>
-        <div className={styles.modalClose} onClick={context.closeModal}></div> 
-        <h2 className={styles.heading}>Create your snippet!</h2>
-      </div>
-    )}
-  </AppContext.Consumer>
+const Modal = ({appContext: { closeModal }}) => (
+  <div className={styles.modal}>
+    <div className={styles.modalCloseBtn} onClick={closeModal}></div> 
+    <h2 className={styles.heading}>Create your snippet!</h2>
+    <Form />
+  </div>
 )
 
 
-export default Modal;
+export default withContext(Modal);

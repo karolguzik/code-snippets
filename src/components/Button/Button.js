@@ -1,13 +1,9 @@
 import React from 'react';
 import styles from './Button.module.scss';
-import AppContext from '../../context';
+import withContext from '../../hoc/withContext';
 
-const Button = () => (
-    <AppContext.Consumer>
-      {(context) => (
-          <button className={styles.button} onClick={context.openModal}>Add snippet</button>
-      )}
-    </AppContext.Consumer>
+const Button = ({ appContext: { openModal } }) => (
+    <button className={styles.button} onClick={openModal}>Add snippet</button>
   )
 
-export default Button;
+export default withContext(Button);

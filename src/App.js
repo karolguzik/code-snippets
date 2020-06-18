@@ -18,6 +18,7 @@ class App extends React.Component {
     css: [],
     javascript: [],
     react: [],
+    filteredSnippets: null,
     isModalOpen: false,
   }
 
@@ -40,9 +41,9 @@ class App extends React.Component {
     })
   }
 
-  searchSnippet = (type, snippet) => {
+  searchSnippet = (snippets) => {
     this.setState({
-      [type]: snippet
+      filteredSnippets: snippets
     })
   }
 

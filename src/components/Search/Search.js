@@ -3,41 +3,42 @@ import styles from './Search.module.scss';
 import { withRouter } from 'react-router-dom';
 import withContext from '../../hoc/withContext';
 
+// TODO: reset input value after change snippet view for reset desplaying snippets on different view.
+// TODO: render Search component while view include any snippets
 class Search extends Component {
-  state = { 
-    snippet: [],
+  state = {
+    search: '',
   }
-
-
 
   handleSearchChange = (e) => {
-    console.log(this.props.appContext.allSnippets)
-    const type = this.props.location.pathname.split('/')[1];
-
-    const snippet = this.props.appContext[type].filter(snippet => snippet.title.includes(e.target.value));
-
-    console.log(snippet);
-    if(e.target.value == '') {
-      this.setState({
-        snippet: this.props.appContext[type]
-      })
-    }
-
     this.setState({
-      snippet: snippet,
+      search: e.target.value
+    }, () => {
+      this.props.appContext.searchSnippet(this.updateSearchFilter());
     })
-
-  console.log(this.state)
-
-    this.props.appContext.searchSnippet(type, this.state.snippet)
   }
 
-  render(){
-    console.log(this.props)
+  updateSearchFilter = () => {
+    const {location, appContext} = this.props;
+    const { search } = this.state;
+
+    const typeOfSnippets = location.pathname.split('/')[1];
+    let filteredSnippets = [];
+
+    if(search !== '') {
+      filteredSnippets = appContext[typeOfSnippets].filter(snippet => snippet.title.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+    } else filteredSnippets = null;
+    
+    return filteredSnippets;
+  }
+
+  render(){ 
+
     return(
-      <input className={styles.search} type="text" placeholder="search" onChange={this.handleSearchChange} />
+      <input className={styles.search} type="text" placeholder="search" value={this.state.search} onChange={this.handleSearchChange} />
     )
   }
-}
+  }
+
 
 export default withContext(withRouter(Search));

@@ -13,7 +13,7 @@ const Header = () => {
       <Stain type='button'/>
       <HeaderLogo />
       <HeaderNav />
-      <Search />
+      <Search /> 
       <Button />
     </header>
   )

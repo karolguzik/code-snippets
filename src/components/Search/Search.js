@@ -33,7 +33,6 @@ class Search extends Component {
   }
 
   render(){ 
-
     return(
       <input className={styles.search} type="text" placeholder="search" value={this.state.search} onChange={this.handleSearchChange} />
     )

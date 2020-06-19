@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import AppContext from './context/context';
 import Header from './components/Header/Header';
 import WelcomeView from './views/WelcomeView/WelcomeView';
@@ -11,7 +11,6 @@ import ReactView from './views/ReactView/ReactView';
 import SnippetView from './views/SnippetView/SnippetView';
 import Modal from './components/Modal/Modal';
 
-
 class App extends React.Component {
   state = {
     html: [],
@@ -20,6 +19,12 @@ class App extends React.Component {
     react: [],
     filteredSnippets: null,
     isModalOpen: false,
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if(this.props.location !== prevProps.location) {
+      this.resetFilteredSnippets();
+    }
   }
 
   addSnippet = (e, snippet) => {
@@ -47,6 +52,12 @@ class App extends React.Component {
     })
   }
 
+  resetFilteredSnippets = () => {
+    this.setState({
+      filteredSnippets: null
+    })
+  }
+
   openModal = () => {
     this.setState({
       isModalOpen: true,
@@ -60,7 +71,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     let { html, css, javascript, react } = this.state;
     let allSnippets = [...html, ...css,...javascript,...react];
 
@@ -75,22 +85,20 @@ class App extends React.Component {
     }
 
     return (
-      <BrowserRouter>
-        <AppContext.Provider value={context}>
-          <Header />
-          <Switch>
-            <Route exact path="/" component={WelcomeView} />
-            <Route path="/html" component={HtmlView}/>
-            <Route path="/snippet/:id" component={SnippetView}/>
-            <Route path="/css" component={CssView}/>
-            <Route path="/javascript" component={JavascriptView}/>
-            <Route path="/react" component={ReactView}/>
-          </Switch>
-          {this.state.isModalOpen && <Modal />}
-        </AppContext.Provider>
-      </BrowserRouter>
+      <AppContext.Provider value={context}>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={WelcomeView} />
+          <Route path="/html" component={HtmlView} />
+          <Route path="/snippet/:id" component={SnippetView} />
+          <Route path="/css" component={CssView} />
+          <Route path="/javascript" component={JavascriptView} />
+          <Route path="/react" component={ReactView} />
+        </Switch>
+        {this.state.isModalOpen && <Modal />}
+      </AppContext.Provider>
     )
   }
 }
 
-export default App;
+export default withRouter(App);

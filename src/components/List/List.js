@@ -5,7 +5,7 @@ import ListItem from './ListItem';
 const List = ({items}) => {
   const itemsList = items.length ? (
     items.map(item => {
-      return <ListItem title={item.title} key={item.id} id={item.id}/>
+      return <ListItem title={item.title} key={item.id} id={item.id} type={item.type}/>
     })
   ) : (
     <p>No added snippet's yet...</p>

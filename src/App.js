@@ -60,6 +60,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     let { html, css, javascript, react } = this.state;
     let allSnippets = [...html, ...css,...javascript,...react];
 

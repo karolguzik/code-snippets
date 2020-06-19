@@ -2,6 +2,7 @@ import React from 'react';
 import nextId from 'react-id-generator';
 import styles from './Form.module.scss';
 import withContext from '../../hoc/withContext';
+import { withRouter } from 'react-router-dom';
 
 const types = {
   html: 'html',
@@ -12,31 +13,63 @@ const types = {
 
 class Form extends React.Component {
   state = {
-    type: types.html,
-    title: '',
-    description: '',
-    code: '',
-    id: nextId(),
+    snippet: {
+      type: this.props.location.pathname.split('/')[1],
+      title: '',
+      description: '',
+      code: '',
+      id: nextId(),
+    },
+    validationError: false,
   };
 
   handleRadioInputChange = (type) => {
     this.setState({
-      type: type,
+      snippet: { ...this.state.snippet, type: type },
     });
   };
 
   handleInputChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value,
+      snippet: { ...this.state.snippet, [e.target.name]: e.target.value },
     });
   };
 
+  handleOnSubmit = (e, snippet) => {
+    e.preventDefault();
+    const {
+      appContext: { addSnippet },
+      history: { push },
+    } = this.props;
+    const { title, description, code } = this.state.snippet;
+
+    if (title === '' || description === '' || code === '') {
+      this.validateFormError();
+    } else {
+      addSnippet(e, snippet);
+      push(`/${snippet.type}`);
+    }
+  };
+
+  validateFormError = () => {
+    this.setState({
+      validationError: true,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        validationError: false,
+      });
+    }, 2000);
+  };
+
   render() {
-    const { addSnippet } = this.props.appContext;
+    console.log(this.state);
+    console.log(this.props);
     return (
       <form
         className={styles.form}
-        onSubmit={(e) => addSnippet(e, this.state)}
+        onSubmit={(e) => this.handleOnSubmit(e, this.state.snippet)}
         autoComplete='off'
       >
         <div className={styles.radioInputContainer}>
@@ -46,7 +79,7 @@ class Form extends React.Component {
               name='html'
               id='html'
               value='html'
-              checked={this.state.type === types.html}
+              checked={this.state.snippet.type === types.html}
               onChange={() => this.handleRadioInputChange(types.html)}
             />
             <label htmlFor='html'>Html</label>
@@ -57,7 +90,7 @@ class Form extends React.Component {
               name='css'
               id='css'
               value='css'
-              checked={this.state.type === types.css}
+              checked={this.state.snippet.type === types.css}
               onChange={() => this.handleRadioInputChange(types.css)}
             />
             <label htmlFor='css'>Css</label>
@@ -68,7 +101,7 @@ class Form extends React.Component {
               name='javascript'
               id='javascript'
               value='javascript'
-              checked={this.state.type === types.javascript}
+              checked={this.state.snippet.type === types.javascript}
               onChange={() => this.handleRadioInputChange(types.javascript)}
             />
             <label htmlFor='javascript'>Javascript</label>
@@ -79,7 +112,7 @@ class Form extends React.Component {
               name='react'
               id='react'
               value='react'
-              checked={this.state.type === types.react}
+              checked={this.state.snippet.type === types.react}
               onChange={() => this.handleRadioInputChange(types.react)}
             />
             <label htmlFor='react'>React</label>
@@ -111,10 +144,12 @@ class Form extends React.Component {
           placeholder='Code'
           onChange={this.handleInputChange}
         ></textarea>
-        <button
-          className={styles.button}
-          type='submit'
-        >
+        {this.state.validationError ? (
+          <p className={styles.validationErrorMessage}>
+            You have to fill up all blanks.
+          </p>
+        ) : null}
+        <button className={styles.button} type='submit'>
           Add
         </button>
       </form>
@@ -122,4 +157,4 @@ class Form extends React.Component {
   }
 }
 
-export default withContext(Form);
+export default withContext(withRouter(Form));

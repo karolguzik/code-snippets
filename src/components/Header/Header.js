@@ -9,11 +9,9 @@ import Stain from '../Stain/Stain';
 
 const Header = ({ location: { pathname }}) => {
   const searchActiveTypes = ['/html', '/css', '/javascript', '/react'];
-  const search = searchActiveTypes.map(el => {
-    if(el === pathname) {
-      return <Search />
-    }
-  })
+  const search = searchActiveTypes.map(el => el === pathname ? <Search /> : null)
+  // const search = searchActiveTypes.filter(el => el === pathname);
+  // console.log(search)
 
   return(
     <header className={styles.header}>
@@ -22,6 +20,7 @@ const Header = ({ location: { pathname }}) => {
       <HeaderLogo />
       <HeaderNav />
       {/* <Search />  */}
+      {/* {search.length !== 0 && <Search />} */}
       {search}
       <Button />
     </header>

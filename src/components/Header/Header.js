@@ -6,25 +6,28 @@ import HeaderNav from './HeaderNav';
 import Search from '../Search/Search';
 import Button from '../Button/Button';
 import Stain from '../Stain/Stain';
+import PropTypes from 'prop-types';
 
 const Header = ({ location: { pathname }}) => {
   const searchActiveTypes = ['/html', '/css', '/javascript', '/react'];
   const search = searchActiveTypes.map(el => el === pathname ? <Search /> : null)
-  // const search = searchActiveTypes.filter(el => el === pathname);
-  // console.log(search)
 
   return(
     <header className={styles.header}>
+      <Stain type='logo' />
       <Stain />
-      <Stain type='button'/>
       <HeaderLogo />
       <HeaderNav />
-      {/* <Search />  */}
-      {/* {search.length !== 0 && <Search />} */}
       {search}
       <Button />
     </header>
   )
+}
+
+Header.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  })
 }
 
 export default withRouter(Header);

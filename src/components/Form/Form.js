@@ -3,6 +3,7 @@ import nextId from 'react-id-generator';
 import styles from './Form.module.scss';
 import withContext from '../../hoc/withContext';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const types = {
   html: 'html',
@@ -24,14 +25,16 @@ class Form extends React.Component {
   };
 
   handleRadioInputChange = (type) => {
+    const { snippet } = this.state;
     this.setState({
-      snippet: { ...this.state.snippet, type: type },
+      snippet: { ...snippet, type: type },
     });
   };
 
   handleInputChange = (e) => {
+    const { snippet } = this.state;
     this.setState({
-      snippet: { ...this.state.snippet, [e.target.name]: e.target.value },
+      snippet: { ...snippet, [e.target.name]: e.target.value },
     });
   };
 
@@ -64,12 +67,16 @@ class Form extends React.Component {
   };
 
   render() {
-    console.log(this.state);
+    const {
+      snippet,
+      snippet: { type },
+      validationError,
+    } = this.state;
     console.log(this.props);
     return (
       <form
         className={styles.form}
-        onSubmit={(e) => this.handleOnSubmit(e, this.state.snippet)}
+        onSubmit={(e) => this.handleOnSubmit(e, snippet)}
         autoComplete='off'
       >
         <div className={styles.radioInputContainer}>
@@ -79,7 +86,7 @@ class Form extends React.Component {
               name='html'
               id='html'
               value='html'
-              checked={this.state.snippet.type === types.html}
+              checked={type === types.html}
               onChange={() => this.handleRadioInputChange(types.html)}
             />
             <label htmlFor='html'>Html</label>
@@ -90,7 +97,7 @@ class Form extends React.Component {
               name='css'
               id='css'
               value='css'
-              checked={this.state.snippet.type === types.css}
+              checked={type === types.css}
               onChange={() => this.handleRadioInputChange(types.css)}
             />
             <label htmlFor='css'>Css</label>
@@ -101,7 +108,7 @@ class Form extends React.Component {
               name='javascript'
               id='javascript'
               value='javascript'
-              checked={this.state.snippet.type === types.javascript}
+              checked={type === types.javascript}
               onChange={() => this.handleRadioInputChange(types.javascript)}
             />
             <label htmlFor='javascript'>Javascript</label>
@@ -112,7 +119,7 @@ class Form extends React.Component {
               name='react'
               id='react'
               value='react'
-              checked={this.state.snippet.type === types.react}
+              checked={type === types.react}
               onChange={() => this.handleRadioInputChange(types.react)}
             />
             <label htmlFor='react'>React</label>
@@ -144,7 +151,7 @@ class Form extends React.Component {
           placeholder='Code'
           onChange={this.handleInputChange}
         ></textarea>
-        {this.state.validationError ? (
+        {validationError ? (
           <p className={styles.validationErrorMessage}>
             You have to fill up all blanks.
           </p>
@@ -156,5 +163,17 @@ class Form extends React.Component {
     );
   }
 }
+
+Form.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  appContext: PropTypes.shape({
+    addSnippet: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default withContext(withRouter(Form));

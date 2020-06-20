@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './List.module.scss';
 import ListItem from './ListItem';
+import PropTypes from 'prop-types';
 
 const List = ({items}) => {
   const itemsList = items.length ? (
@@ -15,6 +16,10 @@ const List = ({items}) => {
       {itemsList}
     </ul> 
   )
+}
+
+List.propTypes = {
+  items: PropTypes.array.isRequired,
 }
 
 export default List;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import withContext from '../../hoc/withContext';
 import styles from './SnippetView.module.scss';
+import PropTypes from 'prop-types';
 
 
 class SnippetView extends React.Component {
@@ -10,15 +11,18 @@ class SnippetView extends React.Component {
   }
 
   componentDidMount() {
-    let id = this.props.match.params.id
+    const { id } = this.props.match.params;
     this.setState({
       id: id
     })
   }
 
   render(){
-    const snippet = this.props.appContext.allSnippets.map((el) => {
-      if(el.id == this.state.id) {
+    const { id } = this.state;
+    const { allSnippets, deleteSnippet } = this.props.appContext;
+
+    const snippet = allSnippets.map((el) => {
+      if(el.id === id) {
         return (
           <>
             <h2 key={el.id}>{el.title}</h2>
@@ -32,7 +36,7 @@ class SnippetView extends React.Component {
               <button className={styles.btn}>Go back</button>
             </Link>
             <Link to={"/" + el.type}>
-              <button className={styles.btn} onClick={() => this.props.appContext.deleteSnippet(el.type, el.id)}>Delete</button>
+              <button className={styles.btn} onClick={() => deleteSnippet(el.type, el.id)}>Delete</button>
             </Link>
           </>
           )
@@ -45,6 +49,14 @@ class SnippetView extends React.Component {
       </div>
     )
   }
+}
+
+SnippetView.propTypes = {
+  appContext: PropTypes.shape({
+    id: PropTypes.number,
+    allSnippets: PropTypes.array.isRequired,
+    deleteSnippet: PropTypes.func.isRequired,
+  }).isRequired,
 }
 
 export default withContext(SnippetView)

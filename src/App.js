@@ -10,6 +10,7 @@ import JavascriptView from './views/JavaScriptView/JavascriptView';
 import ReactView from './views/ReactView/ReactView';
 import SnippetView from './views/SnippetView/SnippetView';
 import Modal from './components/Modal/Modal';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
   state = {
@@ -22,7 +23,8 @@ class App extends React.Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if(this.props.location !== prevProps.location) {
+    const { location } = this.props;
+    if(location !== prevProps.location) {
       this.resetFilteredSnippets();
     }
   }
@@ -71,7 +73,7 @@ class App extends React.Component {
   }
 
   render() {
-    let { html, css, javascript, react } = this.state;
+    let { html, css, javascript, react, isModalOpen } = this.state;
     let allSnippets = [...html, ...css,...javascript,...react];
 
     const context = {
@@ -95,10 +97,16 @@ class App extends React.Component {
           <Route path="/javascript" component={JavascriptView} />
           <Route path="/react" component={ReactView} />
         </Switch>
-        {this.state.isModalOpen && <Modal />}
+        {isModalOpen && <Modal />}
       </AppContext.Provider>
     )
   }
 }
+
+App.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default withRouter(App);

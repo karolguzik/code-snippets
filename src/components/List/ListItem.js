@@ -5,7 +5,7 @@ import pinBlue from '../../assets/images/pin-blue.png';
 import pinRed from '../../assets/images/pin-red.png';
 import pinYellow from '../../assets/images/pin-yellow.png';
 import pinPink from '../../assets/images/pin-pink.png';
-
+import PropTypes from 'prop-types';
 
 const ListItem = ({ title, id, type}) => {
   const pinColor = {
@@ -22,6 +22,12 @@ const ListItem = ({ title, id, type}) => {
       </li>
     </Link>
   )
+}
+
+ListItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  type: PropTypes.string.isRequired,
 }
 
 export default ListItem;

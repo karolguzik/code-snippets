@@ -1,0 +1,23 @@
+.heading {
+  color: #eee;
+
+  &Primary {
+    @extend .heading;
+    margin-top: 20rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 3.5rem;
+    color: #aaa;
+  }
+
+  &Secondary {
+    @extend .heading;
+    text-align: center;
+    font-size: 2.4rem;
+  }
+
+  &Tertiary {
+    @extend .heading;
+    font-size: 2.2rem;
+  }
+}

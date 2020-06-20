@@ -1,0 +1,8 @@
+.paragraph {
+  color: #aaa;
+}
+
+.center {
+  @extend .paragraph;
+  text-align: center;
+}

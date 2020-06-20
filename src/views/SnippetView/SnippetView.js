@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import withContext from '../../hoc/withContext';
 import styles from './SnippetView.module.scss';
 import PropTypes from 'prop-types';
+import Heading from '../../components/Heading/Heading';
+import Paragraph from '../../components/Paragraph/Paragraph';
+import Button from '../../components/Button/Button';
 
 
 class SnippetView extends React.Component {
@@ -20,33 +23,33 @@ class SnippetView extends React.Component {
   render(){
     const { id } = this.state;
     const { allSnippets, deleteSnippet } = this.props.appContext;
-
+    
     const snippet = allSnippets.map((el) => {
       if(el.id === id) {
         return (
-          <>
-            <h2 key={el.id}>{el.title}</h2>
-            <p>{el.description}</p>
+          <div className={styles.wrapper} key={el.id}>
+            <Heading tag='h3'>{el.title}</Heading>
+            <Paragraph>{el.description}</Paragraph>
             <div className={styles.codeSnippetWrapper}>
               <pre>
                 <code>{el.code}</code>
               </pre>
             </div>
-            <Link to={"/" + el.type}>
-              <button className={styles.btn}>Go back</button>
+            <Link to={`/${el.type}`}>
+              <Button btnSnippet>Go back</Button>
             </Link>
-            <Link to={"/" + el.type}>
-              <button className={styles.btn} onClick={() => deleteSnippet(el.type, el.id)}>Delete</button>
+            <Link to={`/${el.type}`}>
+              <Button btnSnippet onClick={() => deleteSnippet(el.type, el.id)}>Delete</Button>
             </Link>
-          </>
+          </div>
           )
-        }
+        } return null;
       })
 
     return(
-      <div className={styles.wrapper}>
+      <>
         {snippet}
-      </div>
+      </>
     )
   }
 }

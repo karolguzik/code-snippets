@@ -1,9 +1,12 @@
 import React from 'react';
-import nextId from 'react-id-generator';
 import styles from './Form.module.scss';
+import nextId from 'react-id-generator';
 import withContext from '../../hoc/withContext';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Input from '../Input/Input';
+import InputRadio from '../Input/InputRadio';
+import Button from '../Button/Button';
 
 const types = {
   html: 'html',
@@ -44,9 +47,15 @@ class Form extends React.Component {
       appContext: { addSnippet },
       history: { push },
     } = this.props;
-    const { title, description, code } = this.state.snippet;
+    const { title, description, code, type } = this.state.snippet;
 
-    if (title === '' || description === '' || code === '') {
+    if (
+      title === '' ||
+      description === '' ||
+      code === '' ||
+      type === '' ||
+      type === 'snippet'
+    ) {
       this.validateFormError();
     } else {
       addSnippet(e, snippet);
@@ -72,7 +81,7 @@ class Form extends React.Component {
       snippet: { type },
       validationError,
     } = this.state;
-    console.log(this.props);
+    console.log(this.state);
     return (
       <form
         className={styles.form}
@@ -80,85 +89,40 @@ class Form extends React.Component {
         autoComplete='off'
       >
         <div className={styles.radioInputContainer}>
-          <div>
-            <input
-              type='radio'
-              name='html'
-              id='html'
-              value='html'
-              checked={type === types.html}
-              onChange={() => this.handleRadioInputChange(types.html)}
-            />
-            <label htmlFor='html'>Html</label>
-          </div>
-          <div>
-            <input
-              type='radio'
-              name='css'
-              id='css'
-              value='css'
-              checked={type === types.css}
-              onChange={() => this.handleRadioInputChange(types.css)}
-            />
-            <label htmlFor='css'>Css</label>
-          </div>
-          <div>
-            <input
-              type='radio'
-              name='javascript'
-              id='javascript'
-              value='javascript'
-              checked={type === types.javascript}
-              onChange={() => this.handleRadioInputChange(types.javascript)}
-            />
-            <label htmlFor='javascript'>Javascript</label>
-          </div>
-          <div>
-            <input
-              type='radio'
-              name='react'
-              id='react'
-              value='react'
-              checked={type === types.react}
-              onChange={() => this.handleRadioInputChange(types.react)}
-            />
-            <label htmlFor='react'>React</label>
-          </div>
+          <InputRadio
+            name='html'
+            checked={type === types.html}
+            onChange={() => this.handleRadioInputChange(types.html)}
+          />
+          <InputRadio
+            name='css'
+            checked={type === types.css}
+            onChange={() => this.handleRadioInputChange(types.css)}
+          />
+          <InputRadio
+            name='javascript'
+            checked={type === types.javascript}
+            onChange={() => this.handleRadioInputChange(types.javascript)}
+          />
+          <InputRadio
+            name='react'
+            checked={type === types.react}
+            onChange={() => this.handleRadioInputChange(types.react)}
+          />
         </div>
-        <input
-          className={styles.input}
-          type='text'
-          name='title'
-          id='title'
-          placeholder='Title'
+        <Input name='title' onChange={this.handleInputChange} />
+        <Input
+          tag='textarea'
+          name='description'
           onChange={this.handleInputChange}
         />
-        <textarea
-          className={styles.textarea}
-          name='description'
-          id='description'
-          cols='50'
-          rows='10'
-          placeholder='Description'
-          onChange={this.handleInputChange}
-        ></textarea>
-        <textarea
-          className={styles.textarea}
-          name='code'
-          id='code'
-          cols='50'
-          rows='10'
-          placeholder='Code'
-          onChange={this.handleInputChange}
-        ></textarea>
+        <Input tag='textarea' name='code' onChange={this.handleInputChange} />
         {validationError ? (
           <p className={styles.validationErrorMessage}>
             You have to fill up all blanks.
           </p>
         ) : null}
-        <button className={styles.button} type='submit'>
-          Add
-        </button>
+        <Button btnForm>Add</Button>
       </form>
     );
   }

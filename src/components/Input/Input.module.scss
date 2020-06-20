@@ -1,7 +1,6 @@
 @mixin styleScroll {
   &::-webkit-scrollbar {
     width: .4rem;
-    height: .4rem;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -18,18 +17,34 @@
   }
 }
 
-.wrapper {
-  padding: 5rem 10rem;
-  height: 100%;
+.input,
+.textarea {
+  background: none;
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid #333;
+  color: #eee;
 }
 
-.codeSnippetWrapper {
-  height: 50vh;
-  width: 40%;
-  margin: 5rem 0 5rem 1rem;
-  padding: 1rem;
-  background: #111;
-  border-radius: 5px;
-  overflow: auto;
+.input {
+  margin: 2rem 0;
+  font-size: 1.6rem;
+}
+
+.textarea {
+  margin: 1rem 0;
+  height: 100px;
+  font-size: 1.8rem;
   @include styleScroll;
+}
+
+.textarea[name='code'] {
+  height: 200px;
+}
+
+label {
+  margin: 0 1rem;
+  color: #eee;
+  font-size: 1.3rem;
+  cursor: pointer;
 }

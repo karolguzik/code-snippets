@@ -6,6 +6,7 @@ import pinRed from '../../assets/images/pin-red.png';
 import pinYellow from '../../assets/images/pin-yellow.png';
 import pinPink from '../../assets/images/pin-pink.png';
 import PropTypes from 'prop-types';
+import Heading from '../Heading/Heading';
 
 const ListItem = ({ title, id, type}) => {
   const pinColor = {
@@ -17,7 +18,7 @@ const ListItem = ({ title, id, type}) => {
   return (
     <Link className={styles.link} to={'/snippet/' + id}>
       <li className={styles.wrapper}>
-        <h2 className={styles.heading}>{title}</h2>
+        <Heading tag='h3'>{title}</Heading>
         <img className={styles.pin} src={pinColor[type]} alt="Pin"/>
       </li>
     </Link>

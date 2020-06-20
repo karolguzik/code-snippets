@@ -3,11 +3,13 @@ import styles from './Modal.module.scss';
 import withContext from '../../hoc/withContext';
 import Form from '../Form/Form';
 import PropTypes from 'prop-types';
+import Heading from '../Heading/Heading';
+import Button from '../Button/Button';
 
 const Modal = ({appContext: { closeModal }}) => (
   <div className={styles.modal}>
-    <div className={styles.modalCloseBtn} onClick={closeModal}></div> 
-    <h2 className={styles.heading}>Create your snippet!</h2>
+    <Button tag='div' btnCloseModal onClick={closeModal}></Button>
+    <Heading tag='h2'>Create your snippet!</Heading>
     <Form />
   </div>
 )

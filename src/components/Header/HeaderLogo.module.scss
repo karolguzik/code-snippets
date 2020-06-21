@@ -1,4 +1,5 @@
 .logo {
+  position: relative;
   display: block;
   font-weight: 700;
   text-transform: uppercase;
@@ -8,7 +9,7 @@
   color: #eee;
 
   &::first-letter {
-    color: #000;
+    color: #333;
     font-size: 4rem;
   }
 }

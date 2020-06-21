@@ -22,10 +22,71 @@ class App extends React.Component {
     isModalOpen: false,
   }
 
+  componentDidMount = () => {
+    this.getSnippetsFromLocalStorage();
+  }
+
   componentDidUpdate = (prevProps) => {
     const { location } = this.props;
     if(location !== prevProps.location) {
       this.resetFilteredSnippets();
+    }
+  }
+
+  saveSnippetsInLocalStorage = (snippet) => {
+    let snippets;
+
+    if(localStorage.getItem('snippets') === null) {
+      snippets = [];
+    } else {
+      snippets = JSON.parse(localStorage.getItem('snippets'))
+    }
+
+    snippets.push(snippet);
+
+    localStorage.setItem('snippets', JSON.stringify(snippets));
+  } 
+
+  deleteSnippetsFromLocalStorage = (id) => {
+    let snippets;
+
+    if(localStorage.getItem('snippets') === null) {
+      snippets = [];
+    } else {
+      snippets = JSON.parse(localStorage.getItem('snippets'))
+    }
+
+    let filteredSnippets = snippets.filter(snippet => snippet.id !== id);
+
+    localStorage.setItem('snippets', JSON.stringify(filteredSnippets))
+  }
+
+  getSnippetsFromLocalStorage = () => {
+    let snippets;
+
+    if(localStorage.getItem('snippets') === null) {
+      snippets = [];
+    } else {
+      snippets = JSON.parse(localStorage.getItem('snippets'));
+      snippets.map(snippet => {
+        if(snippet.type === 'html') {
+          this.setState({
+            html: [...this.state.html, snippet]
+          })
+        } else if(snippet.type === 'css') {
+          this.setState({
+            css: [...this.state.css, snippet]
+          })
+        } else if(snippet.type === 'javascript') {
+          this.setState({
+            javascript: [...this.state.javascript, snippet]
+          })
+        } else {
+          this.setState({
+            react: [...this.state.react, snippet]
+          })
+        }
+      })
     }
   }
 
@@ -36,12 +97,16 @@ class App extends React.Component {
       [snippet.type]: [...prevState[snippet.type], snippet]
     }))
 
+    this.saveSnippetsInLocalStorage(snippet);
+
     this.closeModal();
   }
 
   deleteSnippet = (type, id) => {
     const snippets = this.state[type];
     const filteredSnippets = snippets.filter(snippet => snippet.id !== id)
+
+    this.deleteSnippetsFromLocalStorage(id)
 
     this.setState({
       [type]: filteredSnippets

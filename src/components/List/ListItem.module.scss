@@ -4,11 +4,12 @@
   height: 200px;
   padding: 4rem;
   border-radius: 5px;
-  box-shadow: 0 5px 20px -3px rgba(#000, .7);
+  box-shadow: 0 5px 20px -3px rgba(rgb(0, 0, 0), .7);
   list-style: none;
   transition: .1s ease-in-out;
   animation: snippetSlideIn .5s ease forwards;
-  word-break: break-all;
+  // word-break: break-all;
+  word-wrap: auto;
 
   &:hover {
     transform: translateY(-3px);

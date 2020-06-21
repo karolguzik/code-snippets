@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Form.module.scss';
-import nextId from 'react-id-generator';
+import shortid from 'shortid';
 import withContext from '../../hoc/withContext';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -22,7 +22,7 @@ class Form extends React.Component {
       title: '',
       description: '',
       code: '',
-      id: nextId(),
+      id: shortid.generate(),
     },
     validationError: false,
   };

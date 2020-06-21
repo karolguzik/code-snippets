@@ -49,17 +49,18 @@ class Form extends React.Component {
     } = this.props;
     const { title, description, code, type } = this.state.snippet;
 
+    const re = /\S+/;
     if (
-      title === '' ||
-      description === '' ||
-      code === '' ||
-      type === '' ||
-      type === 'snippet'
+      re.test(title) &&
+      re.test(description) &&
+      re.test(code) &&
+      re.test(type) &&
+      type !== 'snippet'
     ) {
-      this.validateFormError();
-    } else {
       addSnippet(e, snippet);
       push(`/${snippet.type}`);
+    } else {
+      this.validateFormError();
     }
   };
 

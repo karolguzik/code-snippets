@@ -85,7 +85,7 @@ class App extends React.Component {
           this.setState({
             react: [...this.state.react, snippet]
           })
-        }
+        } return null;
       })
     }
   }

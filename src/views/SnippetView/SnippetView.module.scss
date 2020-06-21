@@ -19,18 +19,26 @@
 }
 
 .wrapper {
-  padding: 5rem 10rem;
+  padding: 5rem 20rem;
   height: 100%;
+  // text-align: center;
 }
 
 .codeSnippetWrapper {
   height: 50vh;
   width: 40%;
   margin: 5rem 0 5rem 1rem;
+  // margin: 5rem auto;
   padding: 1rem;
-  font-size: 2rem;
-  background: #111;
+  background: #1E1E1E;
+  font-size: 1.8rem;
+  line-height: 1.4;
+  text-align: left;
   border-radius: 5px;
   overflow: auto;
   @include styleScroll;
+
+  & pre {
+    @include styleScroll;
+  }
 }

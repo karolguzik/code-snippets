@@ -1,7 +1,9 @@
 import React from 'react';
+import styles from './SnippetView.module.scss';
 import { Link } from 'react-router-dom';
 import withContext from '../../hoc/withContext';
-import styles from './SnippetView.module.scss';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { vs2015 } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import PropTypes from 'prop-types';
 import Heading from '../../components/Heading/Heading';
 import Paragraph from '../../components/Paragraph/Paragraph';
@@ -32,7 +34,9 @@ class SnippetView extends React.Component {
             <Paragraph>{el.description}</Paragraph>
             <div className={styles.codeSnippetWrapper}>
               <pre>
-                <code>{el.code}</code>
+              <SyntaxHighlighter language={null} style={vs2015}>
+                {el.code}
+              </SyntaxHighlighter>
               </pre>
             </div>
             <Link to={`/${el.type}`}>

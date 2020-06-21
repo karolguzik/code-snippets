@@ -7,10 +7,12 @@ import Heading from '../Heading/Heading';
 import Button from '../Button/Button';
 
 const Modal = ({appContext: { closeModal }}) => (
-  <div className={styles.modal}>
-    <Button tag='div' btnCloseModal onClick={closeModal}></Button>
-    <Heading tag='h2'>Create your snippet!</Heading>
-    <Form />
+  <div className={styles.wrapper}>
+    <div className={styles.modal}>
+      <Button tag='div' btnCloseModal onClick={closeModal}></Button>
+      <Heading tag='h2'>Create your snippet!</Heading>
+      <Form />
+    </div>
   </div>
 )
 

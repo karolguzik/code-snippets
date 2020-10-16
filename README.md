@@ -1,7 +1,8 @@
 # Code-snippets
-Application for create snippets from different technologies.
-Created in React.
-Used css modules, scss, context API, local storage.
+Application for create snippets from different technologies.\
+Created in React.\
+Used css modules, scss, context API, local storage.\
+View website https://guzik912.github.io/code-snippets/
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

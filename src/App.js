@@ -155,7 +155,7 @@ class App extends React.Component {
       <AppContext.Provider value={context}>
         <Header />
         <Switch>
-          <Route exact path="/" component={WelcomeView} />
+          <Route exact path="/code-snippets" component={WelcomeView} />
           <Route path="/html" component={HtmlView} />
           <Route path="/snippet/:id" component={SnippetView} />
           <Route path="/css" component={CssView} />
